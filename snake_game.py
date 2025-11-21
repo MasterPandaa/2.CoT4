@@ -1,6 +1,7 @@
-import pygame
-import sys
 import random
+import sys
+
+import pygame
 
 # -----------------------------
 # Konfigurasi dasar
@@ -25,6 +26,7 @@ DIRS = {
     "RIGHT": (BLOCK_SIZE, 0),
 }
 
+
 def draw_grid(surface):
     # Garis grid opsional untuk visual
     for x in range(0, WIDTH, BLOCK_SIZE):
@@ -42,7 +44,9 @@ def random_food_position(snake_set):
     # Bangun semua sel grid
     cols = WIDTH // BLOCK_SIZE
     rows = HEIGHT // BLOCK_SIZE
-    all_cells = [(c * BLOCK_SIZE, r * BLOCK_SIZE) for r in range(rows) for c in range(cols)]
+    all_cells = [
+        (c * BLOCK_SIZE, r * BLOCK_SIZE) for r in range(rows) for c in range(cols)
+    ]
     # Filter yang bukan ular
     empties = [pos for pos in all_cells if pos not in snake_set]
     if not empties:
@@ -133,7 +137,7 @@ def main():
                 game_over = True
             else:
                 # Tabrak diri: cek terhadap tubuh lama (kecuali ekor akan bergerak jika tidak makan)
-                will_eat = (food is not None and new_head == food)
+                will_eat = food is not None and new_head == food
 
                 # Jika tidak makan, ekor akan keluar, jadi buat set tubuh tanpa ekor untuk cek cepat
                 body_set = set(snake[1:]) if not will_eat else set(snake)
